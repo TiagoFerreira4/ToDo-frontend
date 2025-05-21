@@ -24,7 +24,7 @@ Interface web moderna para gerenciar tarefas, desenvolvida em **React** com Mate
 ## Instalação
 
 ```bash
-git clone https://github.com/seu-usuario/ToDo-frontend.git
+git clone https://github.com/TiagoFerreira4/ToDo-frontend.git
 cd ToDo-frontend
 npm install
 ```
