@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# ToDo Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Interface web moderna para gerenciar tarefas, desenvolvida em **React** com Material UI para um visual profissional (inspirado em apps como Trello/Notion/Google Tasks).
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Login e cadastro com autenticação JWT  
+- CRUD completo de tarefas  
+- Interface moderna com Material UI  
+- Validação de formulários e mensagens de erro amigáveis  
+- Integração fácil com backend Node/Express/MongoDB  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Pré-requisitos
 
-### `npm test`
+- Node.js 16+ (preferencialmente 18+)
+- Backend rodando ([ToDo-backend](https://github.com/seu-usuario/ToDo-backend)), configure a URL da API se necessário
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Instalação
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/seu-usuario/ToDo-frontend.git
+cd ToDo-frontend
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Rodando localmente
 
-### `npm run eject`
+Antes de tudo, suba o backend em outra aba/terminal.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+O app abrirá automaticamente em [http://localhost:3000](http://localhost:3000).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Configuração
 
-## Learn More
+Por padrão, as requisições vão para `http://localhost:5000`.  
+Se seu backend estiver em outro endereço/porta, edite o arquivo `src/api.js`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Tecnologias usadas
 
-### Code Splitting
+- React  
+- Material UI  
+- Axios  
+- React Router DOM  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Screenshots
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Tela de Cadastro](public/Cadastro.png)  
+![Tela de Login](public/Login.png)  
+![Tela da Lista de Tarefas](public/Tarefas.png)  
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contribuindo
 
-### Advanced Configuration
+Pull requests são bem-vindos!  
+Para contribuições, abra uma issue ou fork o projeto.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
