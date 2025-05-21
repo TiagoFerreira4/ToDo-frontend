@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'r
 import Login from './components/Login';
 import Register from './components/Register';
 import TaskList from './components/TaskList';
+import './App.css';
+
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
