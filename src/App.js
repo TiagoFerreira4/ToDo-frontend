@@ -1,33 +1,30 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Register from './components/Register';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
+import Register from './components/Register';
 import TaskList from './components/TaskList';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
 
-  function handleLogin(tk) {
-    setToken(tk);
-    localStorage.setItem('token', tk);
-  }
+  const handleLogin = (jwt) => {
+    localStorage.setItem('token', jwt);
+    setToken(jwt);
+  };
 
-  function handleLogout() {
-    setToken(null);
+  const handleLogout = () => {
     localStorage.removeItem('token');
-  }
+    setToken(null);
+  };
 
   return (
     <Router>
-      <div style={{ maxWidth: 400, margin: 'auto', padding: 20 }}>
-        {token && <button onClick={handleLogout}>Logout</button>}
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/tasks" element={token ? <TaskList token={token} /> : <Navigate to="/login" />} />
-          <Route path="*" element={<Navigate to={token ? "/tasks" : "/login"} />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/login" element={!token ? <Login onLogin={handleLogin} /> : <Navigate to="/tasks" />} />
+        <Route path="/register" element={!token ? <Register /> : <Navigate to="/tasks" />} />
+        <Route path="/tasks" element={token ? <TaskList onLogout={handleLogout} /> : <Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to={token ? "/tasks" : "/login"} />} />
+      </Routes>
     </Router>
   );
 }

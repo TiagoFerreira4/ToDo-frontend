@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../api';
-import { useNavigate } from 'react-router-dom';
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -21,14 +21,17 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div>
+    <div className="centered-box">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <input placeholder="Usuário" value={username} onChange={e => setUsername(e.target.value)} /><br />
-        <input placeholder="Senha" type="password" value={password} onChange={e => setPassword(e.target.value)} /><br />
+        <input placeholder="Usuário" value={username} onChange={e => setUsername(e.target.value)} />
+        <input placeholder="Senha" type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <button type="submit">Entrar</button>
       </form>
-      <div>{msg}</div>
+      <div style={{ marginTop: 8 }}>
+        Ainda não tem cadastro? <Link to="/register">Cadastre-se</Link>
+      </div>
+      <div style={{ color: 'red' }}>{msg}</div>
     </div>
   );
 }

@@ -1,88 +1,87 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
 
-function TaskList({ token }) {
+function TaskList({ onLogout }) {
   const [tasks, setTasks] = useState([]);
-  const [title, setTitle] = useState('');
+  const [newTitle, setNewTitle] = useState('');
   const [msg, setMsg] = useState('');
-
-  useEffect(() => {
-    loadTasks();
-    // eslint-disable-next-line
-  }, []);
 
   const loadTasks = async () => {
     try {
-      const res = await api.get('/tasks', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await api.get('/tasks');
       setTasks(res.data);
     } catch (err) {
       setMsg('Erro ao carregar tarefas');
     }
   };
 
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
   const addTask = async (e) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!newTitle.trim()) return;
     try {
-      await api.post('/tasks', { title }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setTitle('');
-      loadTasks();
+      const res = await api.post('/tasks', { title: newTitle });
+      setTasks([...tasks, res.data]);
+      setNewTitle('');
     } catch (err) {
-      setMsg('Erro ao adicionar');
+      setMsg('Erro ao adicionar tarefa');
     }
   };
 
-  const toggleTask = async (id, completed) => {
+  const toggleTask = async (id) => {
     try {
-      await api.put(`/tasks/${id}`, { completed: !completed }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      loadTasks();
+      const t = tasks.find(task => task._id === id);
+      await api.put(`/tasks/${id}`, { completed: !t.completed });
+      setTasks(tasks.map(task =>
+        task._id === id ? { ...task, completed: !task.completed } : task
+      ));
     } catch {
-      setMsg('Erro ao atualizar');
+      setMsg('Erro ao atualizar tarefa');
     }
   };
 
-  const removeTask = async (id) => {
+  const deleteTask = async (id) => {
     try {
-      await api.delete(`/tasks/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      loadTasks();
+      await api.delete(`/tasks/${id}`);
+      setTasks(tasks.filter(task => task._id !== id));
     } catch {
-      setMsg('Erro ao remover');
+      setMsg('Erro ao deletar tarefa');
     }
   };
 
   return (
-    <div>
-      <h2>Suas Tarefas</h2>
-      <form onSubmit={addTask}>
+    <div className="centered-box" style={{ maxWidth: 600 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <h2>Suas Tarefas</h2>
+        <button onClick={onLogout} style={{ background: '#f33', color: '#fff', border: 0, padding: '8px 16px', borderRadius: 4, cursor: 'pointer' }}>Logout</button>
+      </div>
+      <form onSubmit={addTask} style={{ display: 'flex', marginBottom: 16 }}>
         <input
-          value={title}
-          onChange={e => setTitle(e.target.value)}
           placeholder="Nova tarefa"
+          value={newTitle}
+          onChange={e => setNewTitle(e.target.value)}
+          style={{ flex: 1, marginRight: 8 }}
         />
         <button type="submit">Adicionar</button>
       </form>
-      <ul>
-        {tasks.map(t => (
-          <li key={t._id}>
-            <span
-              style={{ textDecoration: t.completed ? 'line-through' : 'none', cursor: 'pointer' }}
-              onClick={() => toggleTask(t._id, t.completed)}
-            >
-              {t.title}
-            </span>
-            <button onClick={() => removeTask(t._id)}>Remover</button>
+      {msg && <div style={{ color: 'red', marginBottom: 8 }}>{msg}</div>}
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {tasks.map(task => (
+          <li key={task._id} style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
+            <input type="checkbox" checked={task.completed} onChange={() => toggleTask(task._id)} />
+            <span style={{
+              textDecoration: task.completed ? 'line-through' : 'none',
+              marginLeft: 8,
+              flex: 1
+            }}>{task.title}</span>
+            <button onClick={() => deleteTask(task._id)} style={{ marginLeft: 8, color: '#fff', background: '#f33', border: 0, borderRadius: 4, cursor: 'pointer' }}>Excluir</button>
           </li>
         ))}
       </ul>
-      {msg && <div>{msg}</div>}
+      {tasks.length === 0 && <div style={{ color: '#888' }}>Nenhuma tarefa cadastrada.</div>}
     </div>
   );
 }
