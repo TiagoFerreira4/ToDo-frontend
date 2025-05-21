@@ -17,7 +17,7 @@ Interface web moderna para gerenciar tarefas, desenvolvida em **React** com Mate
 ## Pré-requisitos
 
 - Node.js 16+ (preferencialmente 18+)
-- Backend rodando ([ToDo-backend](https://github.com/seu-usuario/ToDo-backend)), configure a URL da API se necessário
+- Backend rodando ([ToDo-backend](https://github.com/TiagoFerreira4/ToDo-backend)), configure a URL da API se necessário
 
 ---
 
