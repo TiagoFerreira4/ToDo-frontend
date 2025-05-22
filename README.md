@@ -1,6 +1,6 @@
 # ToDo Frontend
 
-Interface web moderna para gerenciar tarefas, desenvolvida em **React** com Material UI para um visual profissional (inspirado em apps como Trello/Notion/Google Tasks).
+Interface web para gerenciar tarefas, desenvolvida em **React** com Material UI. (Isso foi feito apenas para complementar o Backend).
 
 ---
 
